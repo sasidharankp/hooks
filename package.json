@@ -6,19 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  {
-    "husky": {
-      "hooks": {
-        "prepare-commit-msg": "jira-prepare-commit-msg",
-      }
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "jira-prepare-commit-msg"
     }
   },
-  {
-    "jira-prepare-commit-msg": {
-      "jiraTicketPattern": "([A-Z]+-\\d+)",
-      "ignoredBranchesPattern": "^main|develop|(maint-.*)$",
-      "allowEmptyCommitMessage": false
-    }
+  "jira-prepare-commit-msg": {
+    "jiraTicketPattern": "([A-Z]+-\\d+)",
+    "ignoredBranchesPattern": "^main|develop|(maint-.*)$",
+    "allowEmptyCommitMessage": false
   },
   "repository": {
     "type": "git",
