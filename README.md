@@ -1,1 +1,1 @@
-# hooks
+# husky hooks
