@@ -20,7 +20,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: 'cat package.json'
-        run:  cat package.json | jq '.version = ${{ github.event.inputs.version }}' > package.json
+        run:  cat package.json | jq '.version = "${{ github.event.inputs.version }}"' > package.json
       - name: 'Automated Version Bump'
         id: version-bump
         uses: 'phips28/gh-action-bump-version@master'
