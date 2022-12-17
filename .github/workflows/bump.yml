@@ -21,6 +21,10 @@ jobs:
           ref: ${{ github.ref }}
       - name: 'cat package.json'
         run:  cat package.json | jq '.version = "${{ github.event.inputs.version }}"' > package.json
+      - name: Set Git config
+        run: |
+          git config --global user.name "'Automated Version Bump'"
+          git config --global user.email "my-email@example.com"
       - name: Update package.json
         run: |
           git add package.json
