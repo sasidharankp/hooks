@@ -29,6 +29,7 @@ jobs:
         run: |
           git add package.json
           git commit -m "Update package.json version to ${{ github.event.inputs.version }}"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'cat package.json'
