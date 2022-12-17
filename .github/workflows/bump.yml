@@ -20,7 +20,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
       - name: 'cat package.json'
-        run:  cat package.json | jq .version = "${{ github.event.inputs.version }}" > package.json
+        run:  cat package.json | jq '.version = "3.0.0"' > package.json
       - name: Display JSON
         run: |
           cat package.json
