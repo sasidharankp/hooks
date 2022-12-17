@@ -21,12 +21,11 @@ jobs:
           ref: ${{ github.ref }}
       - name: 'cat package.json'
         run:  cat package.json | jq '.version = "${{ github.event.inputs.version }}"' > package.json
-      - name: Push changelog changes
-        uses: peter-evans/create-pull-request@v3.8.2
-        with:
-          commit-message: Update package.json version to ${{ github.event.inputs.version }}
-          branch: main
-          title: Automated Changlog Update
+      - name: Update package.json
+        run: |
+          git add package.json
+          git commit -m "Update package.json version to ${{ github.event.inputs.version }}"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'cat package.json'
