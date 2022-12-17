@@ -1,0 +1,33 @@
+{
+  "name": "hooks",
+  "version": "1.0.2",
+  "description": "1 2 3 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "jira-prepare-commit-msg"
+    }
+  },
+  "jira-prepare-commit-msg": {
+    "jiraTicketPattern": "([A-Z]+-\\d+)",
+    "ignoredBranchesPattern": "^main|develop|(maint-.*)$",
+    "allowEmptyCommitMessage": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sasidharankp/hooks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sasidharankp/hooks/issues"
+  },
+  "homepage": "https://github.com/sasidharankp/hooks#readme",
+  "devDependencies": {
+    "husky": "^8.0.2",
+    "jira-prepare-commit-msg": "^1.7.1"
+  }
+}
