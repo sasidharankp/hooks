@@ -4,6 +4,8 @@ name: Run version update
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    branches:
+      - 'master'
     inputs:
       version:
         description: 'Version to create, eg, 5.11.2'
@@ -13,20 +15,18 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set package.json version
-        uses: HarmvZ/set-package-json-version-action@v0.1.1
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
         with:
-          path: ./
-          version: ${{ github.event.inputs.version }}
-      
-      - name: Update package-lock file
-        run: npm install
-          
-      - name: Push changelog changes
-        uses: peter-evans/create-pull-request@v3.8.2
+          ref: ${{ github.ref }}
+      - name: 'cat package.json'
+        run: cat ./package.json
+      - name: 'Automated Version Bump'
+        id: version-bump
+        uses: 'phips28/gh-action-bump-version@master'
         with:
-          commit-message: Update package.json version
-          branch: main
-          title: Automated Changlog Update
+          tag-prefix: 'v'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'cat package.json'
+        run: cat ./package.json
