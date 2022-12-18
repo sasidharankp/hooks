@@ -23,16 +23,16 @@ jobs:
       - name: 'check if tag found'
         if: "!$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
         run:  echo tag not found
-        - name: 'Update package.json'
-          run:  echo "`jq '.version="${{ github.event.inputs.version }}"' package.json`" > package.json
-        - name: Commit the changes
-          run: |
-            git add package.json
-            git commit -m "Update package.json version to ${{ github.event.inputs.version }}"
-        - name: Create Tag and Push
-          run: |
-            git tag -a v${{ github.event.inputs.version }} -m "v${{ github.event.inputs.version }}"
-            git push --follow-tags
+      - name: 'Update package.json'
+        run:  echo "`jq '.version="${{ github.event.inputs.version }}"' package.json`" > package.json
+      - name: Commit the changes
+        run: |
+          git add package.json
+          git commit -m "Update package.json version to ${{ github.event.inputs.version }}"
+      - name: Create Tag and Push
+        run: |
+          git tag -a v${{ github.event.inputs.version }} -m "v${{ github.event.inputs.version }}"
+          git push --follow-tags
       - name: 'check if tag found'
         if: "$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
         run:  Tag already present
