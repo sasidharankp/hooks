@@ -21,7 +21,7 @@ jobs:
           git config --global user.name "'Automated Version Bump'"
           git config --global user.email "my-email@example.com"
       - name: 'check if tag found'
-        if: "!$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
+        if: "$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
         run:  echo tag not found
       - name: 'Update package.json'
         run:  echo "`jq '.version="${{ github.event.inputs.version }}"' package.json`" > package.json
