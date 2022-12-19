@@ -1,0 +1,9 @@
+name: Get Sprint Ticket
+on:
+  # Allows you to run this workflow manually from the Actions tab or REST API
+  workflow_dispatch:
+    branches:
+      - 'main'
+jobs:
+  scheduled-call:
+    uses: sasidharankp/hooks/.github/workflows/jira.yml@main
