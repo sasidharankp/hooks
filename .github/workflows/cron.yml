@@ -1,9 +1,11 @@
-name: Get Sprint Ticket
+name: Call the Jira workflow
 on:
-  # Allows you to run this workflow manually from the Actions tab or REST API
   workflow_dispatch:
     branches:
-      - 'main'
+      - main
+
 jobs:
-  scheduled-call:
+  call-workflow:
     uses: sasidharankp/hooks/.github/workflows/jira.yml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
