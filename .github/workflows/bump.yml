@@ -15,7 +15,7 @@ jobs:
       - name: Get current sprint number
         run: |
           SPRINT_NAME=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name')
-          SPRINT_NUMBER = ${SPRINT_NAME:4:9}.0"
+          SPRINT_NUMBER=${SPRINT_NAME:4:9}.0
           echo "Current sprint number: ${SPRINT_NUMBER}"
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
