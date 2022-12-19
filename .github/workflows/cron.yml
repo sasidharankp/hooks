@@ -7,7 +7,9 @@ jobs:
   call-workflow:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Jira workflow
-        uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
+      - uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
+
+      - name: Trigger Jira workflow  
+        run: echo "Workflow Triggered"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
