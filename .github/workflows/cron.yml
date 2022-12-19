@@ -6,6 +6,6 @@ on:
 
 jobs:
   call-workflow:
-    uses: sasidharankp/hooks/.github/workflows/jira.yml@main
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
