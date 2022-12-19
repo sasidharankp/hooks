@@ -9,6 +9,5 @@ jobs:
     steps:
       - name: Trigger Jira workflow
         uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
-        run: echo "Workflow Triggered"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
