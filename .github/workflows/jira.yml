@@ -12,6 +12,6 @@ jobs:
         id: get-sprint-number
         run: |
           SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name+ ".0" | match("[^a-z A-Z]+")| .string')
-          echo ${SPRINT_NUMBER}
+          echo $SPRINT_NUMBER
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
