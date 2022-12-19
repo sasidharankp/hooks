@@ -4,5 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-another-workflow: 
-    uses: project/called/.github/workflows/main.yml@main
+  call-another-workflow:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: call github trigger
+      uses: sasidharankp/hooks/.github/workflows/main.yml@main
+    - name: 2nd step
+      run: echo "All good"
