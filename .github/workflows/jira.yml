@@ -2,8 +2,7 @@ name: Get Sprint Ticket
 on:
   # Allows you to run this workflow manually from the Actions tab or REST API
   workflow_call:
-    branches:
-      - 'main'
+
 jobs:
   update-version:
     runs-on: ubuntu-latest
