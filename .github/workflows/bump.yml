@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get current sprint number
+        id: get-sprint-number
         run: |
           SPRINT_NAME=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name')
-          SPRINT_NUMBER=${SPRINT_NAME:4:9}.0
+          SPRINT_NUMBER=${SPRINT_NAME:4:9}.0 >> $GITHUB_OUTPUT
           echo "Current sprint number: ${SPRINT_NUMBER}"
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
@@ -22,14 +23,14 @@ jobs:
           git config --global user.name "'Automated Version Bump'"
           git config --global user.email "my-email@example.com"
       - name: 'Update package.json'
-        run:  echo "`jq '.version="${SPRINT_NUMBER}"' package.json`" > package.json
+        run:  echo "`jq '.version="${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"' package.json`" > package.json
       - name: Commit the changes
         run: |
           git add package.json
-          git commit -m "Update package.json version to ${SPRINT_NUMBER}"
+          git commit -m "Update package.json version to ${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"
       - name: Create Tag and Push
         run: |
-          git tag -a v${SPRINT_NUMBER} -m "release tag version- v${SPRINT_NUMBER}"
+          git tag -a v${{steps.get-sprint-number.outputs.SPRINT_NUMBER}} -m "release tag version- v${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"
           git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
