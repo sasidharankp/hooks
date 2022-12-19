@@ -1,6 +1,6 @@
 name: Run version update
 on:
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to run this workflow manually from the Actions tab or rest API
   workflow_dispatch:
     branches:
       - 'main'
@@ -11,8 +11,8 @@ jobs:
       - name: Get current sprint number
         id: get-sprint-number
         run: |
-          SPRINT_NAME=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name')
-          echo SPRINT_NUMBER=${SPRINT_NAME:4:9}.0 >> $GITHUB_OUTPUT
+          SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name+ ".0" | match("[^a-z A-Z]+")| .string')
+          echo ${SPRINT_NUMBER} >> $GITHUB_OUTPUT
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
         with:
