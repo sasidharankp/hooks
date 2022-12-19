@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
     branches:
       - 'main'
+    inputs:
+      version:
+        description: 'Version to create'
+        required: false
 jobs:
   update-version:
     runs-on: ubuntu-latest
