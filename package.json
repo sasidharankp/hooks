@@ -1,6 +1,6 @@
 {
   "name": "hooks",
-  "version": "${SPRINT_NUMBER}",
+  "version": "",
   "description": "1 2 3 4",
   "main": "index.js",
   "scripts": {
