@@ -1,7 +1,8 @@
 name: caller
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '*/2 * * * *'
 
 jobs:
   call-another-workflow:
