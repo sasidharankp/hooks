@@ -5,4 +5,4 @@ on:
 
 jobs:
   call-another-workflow:
-    uses: sasidharankp/hooks/.github/workflows/main.yml@main
+    uses: sasidharankp/hooks/.github/workflows/jira.yml@main
