@@ -12,6 +12,10 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current sprint number
+        run: |
+          SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name')
+          echo "Current sprint number: ${SPRINT_NUMBER:4:9}"
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
         with:
