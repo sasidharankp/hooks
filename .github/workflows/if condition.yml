@@ -1,4 +1,4 @@
-name: conditional update
+name: Run version update
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -12,6 +12,10 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current sprint number
+        run: |
+          SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name')
+          echo "Current sprint number: ${SPRINT_NUMBER:4:9}"
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
         with:
@@ -20,9 +24,6 @@ jobs:
         run: |
           git config --global user.name "'Automated Version Bump'"
           git config --global user.email "my-email@example.com"
-      - name: 'check if tag found'
-        if: "$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
-        run:  echo tag not found
       - name: 'Update package.json'
         run:  echo "`jq '.version="${{ github.event.inputs.version }}"' package.json`" > package.json
       - name: Commit the changes
@@ -31,10 +32,7 @@ jobs:
           git commit -m "Update package.json version to ${{ github.event.inputs.version }}"
       - name: Create Tag and Push
         run: |
-          git tag -a v${{ github.event.inputs.version }} -m "v${{ github.event.inputs.version }}"
+          git tag -a v${{ github.event.inputs.version }} -m "release tag version- v${{ github.event.inputs.version }}"
           git push --follow-tags
-      - name: 'check if tag found'
-        if: "$(git ls-remote --tags origin | grep ${{ github.event.inputs.version }})"
-        run:  Tag already present
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
