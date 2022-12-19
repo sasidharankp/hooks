@@ -30,10 +30,10 @@ jobs:
       - name: Commit the changes
         run: |
           git add package.json
-          git commit -m "Update package.json version to ${{SPRINT_NUMBER}}"
+          git commit -m "Update package.json version to ${{github.event.inputs.version}}"
       - name: Create Tag and Push
         run: |
-          git tag -a v${{SPRINT_NUMBER}} -m "release tag version- v${{SPRINT_NUMBER}}"
+          git tag -a v${{SPRINT_NUMBER}} -m "release tag version- v${{github.event.inputs.version}}"
           git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
