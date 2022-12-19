@@ -8,11 +8,12 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Get current sprint number
+       - name: Get current sprint number
         id: get-sprint-number
         run: |
-          SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name+ ".0" | match("[^a-z A-Z]+")| .string')
-          echo $SPRINT_NUMBER >> $GITHUB_OUTPUT
+          SPRINT_NUMBER=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name+ ".0" | match("[^a-z A-Z]+") | .string')
+          echo $SPRINT_NUMBER
+          echo "VERSION=${SPRINT_NUMBER}" >> $GITHUB_OUTPUT
       - name: 'Checkout source code'
         uses: 'actions/checkout@v2'
         with:
@@ -22,14 +23,14 @@ jobs:
           git config --global user.name "'Automated Version Bump'"
           git config --global user.email "my-email@example.com"
       - name: 'Update package.json'
-        run:  echo "`jq '.version="${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"' package.json`" > package.json
+        run:  echo "`jq '.version="${{steps.get-sprint-number.outputs.VERSION}}"' package.json`" > package.json
       - name: Commit the changes
         run: |
           git add package.json
-          git commit -m "Update package.json version to ${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"
+          git commit -m "Update package.json version to ${{steps.get-sprint-number.outputs.VERSION}}"
       - name: Create Tag and Push
         run: |
-          git tag -a v${{steps.get-sprint-number.outputs.SPRINT_NUMBER}} -m "release tag version- v${{steps.get-sprint-number.outputs.SPRINT_NUMBER}}"
+          git tag -a v${{steps.get-sprint-number.outputs.VERSION}} -m "release tag version- v${{steps.get-sprint-number.outputs.VERSION}}"
           git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
