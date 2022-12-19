@@ -4,12 +4,16 @@ on:
     branches:
       - 'main'
 jobs:
-  call-workflow:
+  do-it:
     runs-on: ubuntu-latest
-    steps:
-      - uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
 
-      - name: Trigger Jira workflow  
-        run: echo "Workflow Triggered"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  call-workflow:
+    uses: sasidharankp/hooks/.github/workflows/jira.yml@main
+    
+ 
