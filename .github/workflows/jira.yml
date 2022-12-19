@@ -1,0 +1,17 @@
+name: Get Sprint Ticket
+on:
+  # Allows you to run this workflow manually from the Actions tab or REST API
+  workflow_dispatch:
+    branches:
+      - 'main'
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current sprint number
+        id: get-sprint-number
+        run: |
+          SPRINT_NAME=$(curl -s -X GET -H "Content-Type: application/json" https://639f96897aaf11ceb89d5729.mockapi.io/jira/getBoard/2555 | jq -r '.values[0].name':4:9)
+          echo ${SPRINT_NAME}.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
