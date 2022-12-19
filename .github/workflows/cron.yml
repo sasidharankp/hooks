@@ -1,15 +1,9 @@
-name: Call the Jira workflow
-on:
-  workflow_call:
-    branches:
-      - 'main'
-jobs:
-  call-workflow:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: sasidharankp/hooks/.github/workflows/jira.yml@v24.4.0
+name: caller
 
-      - name: Trigger Jira workflow  
-        run: echo "Workflow Triggered"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+on:
+  workflow_dispatch:
+
+jobs:
+  runs-on: ubuntu-latest
+  call-another-workflow: 
+    uses: project/called/.github/workflows/main.yml@main
