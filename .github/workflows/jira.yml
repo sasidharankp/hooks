@@ -16,6 +16,6 @@ jobs:
           echo "VERSION=33.33.0" >> $GITHUB_OUTPUT
       - name: Show sprint number from OUTPUTS
         run: |
-          echo $VERSION
+          echo ${{ steps.get-sprint-number.outputs.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
